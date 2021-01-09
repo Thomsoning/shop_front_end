@@ -54,7 +54,7 @@
 		</view>
 		
 		<!-- 秒杀楼层 -->
-		<view class="seckill-section m-t">
+	<!-- 	<view class="seckill-section m-t">
 			<view class="s-header">
 				<image class="s-img" src="/static/temp/secskill-img.jpg" mode="widthFix"></image>
 				<text class="tip">8点场</text>
@@ -77,9 +77,9 @@
 				</view>
 			</scroll-view>
 		</view>
-		
+		 -->
 		<!-- 团购楼层 -->
-		<view class="f-header m-t">
+		<!-- <view class="f-header m-t">
 			<image src="/static/temp/h1.png"></image>
 			<view class="tit-box">
 				<text class="tit">精品团购</text>
@@ -132,7 +132,7 @@
 				</swiper-item>
 
 			</swiper>
-		</view>
+		</view> -->
 		
 		
 		
@@ -152,13 +152,13 @@
 			<scroll-view class="floor-list" scroll-x>
 				<view class="scoll-wrapper">
 					<view 
-						v-for="(item, index) in goodsList" :key="index"
+						v-for="(item, index) in selectProductList" :key="index"
 						class="floor-item"
 						@click="navToDetailPage(item)"
 					>
-						<image :src="item.image" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
+						<image :src="item.productInfo.img[0]" mode="aspectFill"></image>
+						<text class="title clamp">{{item.productName}}</text>
+						<text class="price">￥{{item.productPrice}}</text>
 					</view>
 					<view class="more">
 						<text>查看全部</text>
@@ -167,7 +167,7 @@
 				</view>
 			</scroll-view>
 		</view>
-		<view class="hot-floor">
+		<!-- <view class="hot-floor">
 			<view class="floor-img-box">
 				<image class="floor-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553409984228&di=dee176242038c2d545b7690b303d65ea&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F5ef4da9f17faaf4612f0d5046f4161e556e9bbcfdb5b-rHjf00_fw658" mode="scaleToFill"></image>
 			</view>
@@ -188,8 +188,8 @@
 					</view>
 				</view>
 			</scroll-view>
-		</view>
-		<view class="hot-floor">
+		</view> -->
+		<!-- <view class="hot-floor">
 			<view class="floor-img-box">
 				<image class="floor-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553409794730&di=12b840ec4f5748ef06880b85ff63e34e&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01dc03589ed568a8012060c82ac03c.jpg%40900w_1l_2o_100sh.jpg" mode="scaleToFill"></image>
 			</view>
@@ -211,12 +211,12 @@
 				</view>
 			</scroll-view>
 		</view>
-
+ -->
 		<!-- 猜你喜欢 -->
 		<view class="f-header m-t">
 			<image src="/static/temp/h1.png"></image>
 			<view class="tit-box">
-				<text class="tit">猜你喜欢</text>
+				<text class="tit">为你推荐</text>
 				<text class="tit2">Guess You Like It</text>
 			</view>
 			<text class="yticon icon-you"></text>
@@ -273,6 +273,19 @@
 		      this.pageNum=proList.pageNum;
 		      return proList.list;
 		    },
+			selectProductList(){
+			  var proList=this.$store.state.product.getProList;
+			  this.total=proList.total;
+			  this.pageSize=proList.pageSize;
+			  this.pageNum=proList.pageNum;
+			  var list=[];
+			  for (let ls in proList.list) {
+				  if(proList.list[ls].productInfo.select){
+			  	list.push(proList.list[ls])}
+			  }
+			  console.log("精选商品",list)
+			  return list;
+			},
 		    ...mapActions({
 		      'getprolist':'product/getProList'
 		    })

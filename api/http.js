@@ -8,12 +8,13 @@ export default{
             'token':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJoencifQ.YqWDSsPa_2FLTb9Zh2-UWmjq4tpus5Yiz_MHVe8etaI'
             },
             method:'POST',
-            url:"http://localhost:8090"+url,
+            url:"http://49.233.188.52:8090"+url,
             data: params,
             timeout:30000,
             isLoading,
 			dataType:"json",
-            responseType:"json"
+           
+
         })
     }
 }

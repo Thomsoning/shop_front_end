@@ -1,6 +1,7 @@
 import http from './http'
 export default {
     list(params){
+		console.log("商品列表入参",params)
         return http.post('/frontend/product/list',params)
     },
     add(params){
@@ -12,5 +13,12 @@ export default {
     update(params){
         return http.post('/backend/product/update',params)
     },
+	cartList(params){
+	    return http.post('/frontend/cart/list',params)
+	},
+	addCart(params){
+	    return http.post('/frontend/cart/add',params)
+	},
+	
 
 }

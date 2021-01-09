@@ -80,9 +80,7 @@
 </template>
 
 <script>
-	import {
-		mapState
-	} from 'vuex';
+	import {mapActions,mapState,mapMutations} from 'vuex';
 	import uniNumberBox from '@/components/uni-number-box.vue'
 	export default {
 		components: {
@@ -98,6 +96,7 @@
 		},
 		onLoad(){
 			this.loadData();
+			this.fetchData();
 		},
 		watch:{
 			//显示空白页
@@ -109,9 +108,20 @@
 			}
 		},
 		computed:{
+			cartList(){
+			  var cartList=this.$store.state.product.getCartList;
+			  return cartList.list;
+			},
+			...mapActions({
+			  'getCartList':'product/getCartList'
+			}),
 			...mapState(['hasLogin'])
 		},
 		methods: {
+			// 初始化数据
+			fetchData(){
+			      this.$store.dispatch('product/getCartList',{})
+			    },
 			//请求数据
 			async loadData(){
 				let list = await this.$api.json('cartList'); 

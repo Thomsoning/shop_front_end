@@ -3,26 +3,34 @@ import config from '../../api/config'
 const state={
     getProList:{list:[],"total":"","pageSize":"","pageNum":""},
     addProduct:'',
+	getCartList:"",
 }
 
 const mutations ={
     getProList(state,result){
-     var getProList=result.data.data;
-     getProList.list.forEach(element => {
+      result.data.data.list.forEach(element => {
          element.productInfo= JSON.parse(element.productInfo)
      });
-     state.getProList=getProList
-
+     state.getProList=result.data.data
     },
-    addProduct(state,result){
-        state.addProduct=result.data.data;
-    }
+	
+	
+	addProduct(state,result){
+	    state.addProduct=result.data.data;
+	},
+	
+	
+	getCartList(state,result){
+		 var cartList=result.data.data;
+		 state.getCartList=cartList	
+	},
+
 
 }
 
 const actions={
        getProList({state,commit},params){
-        console.log("商品列表入参",params)
+		console.log("商品列表入参",params)
         let res=  config.list(params)
         Promise.resolve(res).then(result=>{
             var [errmsg,res]=result
@@ -69,7 +77,19 @@ const actions={
             commit('getProList',result)
         })
         })
-      }
+      },
+	  
+	  getCartList({state,commit},params){
+	    console.log("购物车列表入参",params)
+	    let res=  config.cartList(params)
+	    Promise.resolve(res).then(result=>{
+	        var [errmsg,res]=result
+	        console.log("购物车列表出参",res)
+	        commit('getCartList',res)
+	    }
+	       
+	    )
+	  },
 
 }
 export default {
