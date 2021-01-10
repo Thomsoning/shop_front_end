@@ -83,9 +83,11 @@
 				})
 				this.sizeCalcState = true;
 			},
-			navToList(sid, tid){
+			navToList(pid, id){
+				console.log("一级分类id",pid);
+				console.log("二级分类id",id);
 				uni.navigateTo({
-					url: `/pages/product/list?fid=${this.currentId}&sid=${sid}&tid=${tid}`
+					url: `/pages/product/list?fid=${this.currentId}&sid=${pid}&tid=${id}`
 				})
 			}
 		}

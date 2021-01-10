@@ -9474,7 +9474,8 @@ var index_esm = {
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./product.js": 12
+	"./category.js": 12,
+	"./product.js": 15
 };
 
 
@@ -9500,6 +9501,118 @@ webpackContext.id = 11;
 
 /***/ }),
 /* 12 */
+/*!**********************************************************************!*\
+  !*** D:/VueProject/uni-app/shop_front_end/store/modules/category.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _config = _interopRequireDefault(__webpack_require__(/*! ../../api/config */ 13));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance");}function _iterableToArrayLimit(arr, i) {var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}
+
+var state = {
+  getCategoryList: { list: [] } };
+
+
+var mutations = {
+  getCategoryList: function getCategoryList(state, result) {
+    result.data.data.forEach(function (element) {
+      element.productInfo = JSON.parse(element.productInfo);
+    });
+    state.getCategoryList = result.data.data;
+  } };
+
+
+
+
+var actions = {
+  getCategoryList: function getCategoryList(_ref, params) {var state = _ref.state,commit = _ref.commit;
+    console.log("category.js-->商品分类入参", params);
+    var res = _config.default.categoryList(params);
+    Promise.resolve(res).then(function (result) {var _result = _slicedToArray(
+      result, 2),errmsg = _result[0],res = _result[1];
+      console.log("category.js-->商品分类出参", res);
+      commit('getCategoryList', res);
+    });
+
+
+  } };var _default =
+
+
+{
+  namespaced: true,
+  state: state,
+  actions: actions,
+  mutations: mutations };exports.default = _default;
+
+/***/ }),
+/* 13 */
+/*!**********************************************************!*\
+  !*** D:/VueProject/uni-app/shop_front_end/api/config.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http */ 14));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+{
+  list: function list(params) {
+    console.log("商品列表入参", params);
+    return _http.default.post('/frontend/product/list', params);
+  },
+  categoryList: function categoryList(params) {
+    console.log("商品分类入参", params);
+    return _http.default.post('/frontend/product/category/list', params);
+  },
+  add: function add(params) {
+    return _http.default.post('/backend/product/add', params);
+  },
+  delete: function _delete(params) {
+    return _http.default.post('/backend/product/delete', params);
+  },
+  update: function update(params) {
+    return _http.default.post('/backend/product/update', params);
+  },
+  cartList: function cartList(params) {
+    return _http.default.post('/frontend/cart/list', params);
+  },
+  addCart: function addCart(params) {
+    return _http.default.post('/frontend/cart/add', params);
+  } };exports.default = _default;
+
+/***/ }),
+/* 14 */
+/*!********************************************************!*\
+  !*** D:/VueProject/uni-app/shop_front_end/api/http.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+{
+  post: function post(url) {var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var _params$isLoading =
+    params.isLoading,isLoading = _params$isLoading === void 0 ? true : _params$isLoading;
+    console.log("http.js--->入参", params);
+    return uni.request({
+      header: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJoencifQ.YqWDSsPa_2FLTb9Zh2-UWmjq4tpus5Yiz_MHVe8etaI' },
+
+      method: 'POST',
+      url: "http://49.233.188.52:8090" + url,
+      // url:"http://localhost:8090"+url,
+      data: params,
+      timeout: 30000,
+      isLoading: isLoading,
+      dataType: "json" });
+
+
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+/* 15 */
 /*!*********************************************************************!*\
   !*** D:/VueProject/uni-app/shop_front_end/store/modules/product.js ***!
   \*********************************************************************/
@@ -9608,73 +9721,12 @@ var actions = {
   mutations: mutations };exports.default = _default;
 
 /***/ }),
-/* 13 */
-/*!**********************************************************!*\
-  !*** D:/VueProject/uni-app/shop_front_end/api/config.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http */ 14));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
-{
-  list: function list(params) {
-    console.log("商品列表入参", params);
-    return _http.default.post('/frontend/product/list', params);
-  },
-  add: function add(params) {
-    return _http.default.post('/backend/product/add', params);
-  },
-  delete: function _delete(params) {
-    return _http.default.post('/backend/product/delete', params);
-  },
-  update: function update(params) {
-    return _http.default.post('/backend/product/update', params);
-  },
-  cartList: function cartList(params) {
-    return _http.default.post('/frontend/cart/list', params);
-  },
-  addCart: function addCart(params) {
-    return _http.default.post('/frontend/cart/add', params);
-  } };exports.default = _default;
-
-/***/ }),
-/* 14 */
-/*!********************************************************!*\
-  !*** D:/VueProject/uni-app/shop_front_end/api/http.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
-{
-  post: function post(url) {var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var _params$isLoading =
-    params.isLoading,isLoading = _params$isLoading === void 0 ? true : _params$isLoading;
-    return uni.request({
-      header: {
-        'Content-Type': 'application/json;charset=UTF-8',
-        'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJoencifQ.YqWDSsPa_2FLTb9Zh2-UWmjq4tpus5Yiz_MHVe8etaI' },
-
-      method: 'POST',
-      url: "http://49.233.188.52:8090" + url,
-      data: params,
-      timeout: 30000,
-      isLoading: isLoading,
-      dataType: "json" });
-
-
-
-  } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-/* 15 */,
 /* 16 */,
 /* 17 */,
 /* 18 */,
 /* 19 */,
-/* 20 */
+/* 20 */,
+/* 21 */
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
   \********************************************************************/
@@ -9780,7 +9832,7 @@ function normalizeComponent (
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /*!****************************************************!*\
   !*** D:/VueProject/uni-app/shop_front_end/Json.js ***!
   \****************************************************/
@@ -9801,15 +9853,15 @@ var userInfo = {
 
   /* 首页轮播图 */ };
 var carouselList = [{
-  src: "/static/temp/banner3.jpg",
+  src: "http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_660eAaVcCAAPi7anfokA737.PNG",
   background: "rgb(203, 87, 60)" },
 
 {
-  src: "/static/temp/banner2.jpg",
+  src: "http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_67DuAZa1wAAOylmTlOUw797.PNG",
   background: "rgb(205, 215, 218)" },
 
 {
-  src: "/static/temp/banner4.jpg",
+  src: "http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_67FaAGa2nAAZMAbQnzRo532.PNG",
   background: "rgb(183, 73, 69)" }];
 
 
@@ -10203,237 +10255,237 @@ var orderList = [{
 
 var cateList = [{
   id: 1,
-  name: '手机数码' },
+  name: 'HTML/CSS' },
 
 {
   id: 2,
-  name: '礼品鲜花' },
+  name: 'JavaScript' },
 
 {
   id: 3,
-  name: '男装女装' },
+  name: '服务端' },
 
 {
   id: 4,
-  name: '母婴用品' },
+  name: '数据库' },
 
 {
   id: 5,
   pid: 1,
-  name: '手机通讯' },
+  name: 'HTML/CSS' },
 
-{
-  id: 6,
-  pid: 1,
-  name: '运营商' },
-
+// {
+// 	id: 6,
+// 	pid: 1,
+// 	name: '运营商'
+// },
 {
   id: 8,
   pid: 5,
-  name: '全面屏手机',
-  picture: '/static/temp/cate2.jpg' },
+  name: 'HTML',
+  picture: 'http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_60_aARIHAAAB8vEXX0Bc833.PNG' },
 
 {
   id: 9,
   pid: 5,
-  name: '游戏手机',
-  picture: '/static/temp/cate3.jpg' },
+  name: 'H5',
+  picture: 'http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_61OCAX4sZAADxlRki_UA491.PNG' },
 
-{
-  id: 10,
-  pid: 5,
-  name: '老人机',
-  picture: '/static/temp/cate1.jpg' },
-
-{
-  id: 11,
-  pid: 5,
-  name: '拍照手机',
-  picture: '/static/temp/cate4.jpg' },
-
-{
-  id: 12,
-  pid: 5,
-  name: '女性手机',
-  picture: '/static/temp/cate5.jpg' },
-
-{
-  id: 14,
-  pid: 6,
-  name: '合约机',
-  picture: '/static/temp/cate1.jpg' },
-
-{
-  id: 15,
-  pid: 6,
-  name: '选好卡',
-  picture: '/static/temp/cate4.jpg' },
-
-{
-  id: 16,
-  pid: 6,
-  name: '办套餐',
-  picture: '/static/temp/cate5.jpg' },
-
+// {
+// 	id: 10,
+// 	pid: 5,
+// 	name: '老人机',
+// 	picture: '/static/temp/cate1.jpg'
+// },
+// {
+// 	id: 11,
+// 	pid: 5,
+// 	name: '拍照手机',
+// 	picture: '/static/temp/cate4.jpg'
+// },
+// {
+// 	id: 12,
+// 	pid: 5,
+// 	name: '女性手机',
+// 	picture: '/static/temp/cate5.jpg'
+// },
+// {
+// 	id: 14,
+// 	pid: 6,
+// 	name: '合约机',
+// 	picture: '/static/temp/cate1.jpg'
+// },
+// {
+// 	id: 15,
+// 	pid: 6,
+// 	name: '选好卡',
+// 	picture: '/static/temp/cate4.jpg'
+// },
+// {
+// 	id: 16,
+// 	pid: 6,
+// 	name: '办套餐',
+// 	picture: '/static/temp/cate5.jpg'
+// },
 {
   id: 17,
   pid: 2,
-  name: '礼品' },
+  name: 'JavaScript' },
 
-{
-  id: 18,
-  pid: 2,
-  name: '鲜花' },
-
+// {
+// 	id: 18,
+// 	pid: 2,
+// 	name: '鲜花',
+// },
 {
   id: 19,
   pid: 17,
-  name: '公益摆件',
-  picture: '/static/temp/cate7.jpg' },
+  name: 'JavaScript',
+  picture: 'http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_61r-AEOviAAFXOfED--Q505.PNG' },
 
 {
   id: 20,
   pid: 17,
-  name: '创意礼品',
-  picture: '/static/temp/cate8.jpg' },
+  name: 'VUE.JS',
+  picture: 'http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_61zKAZ57kAAApIyrRnDo192.PNG' },
 
-{
-  id: 21,
-  pid: 18,
-  name: '鲜花',
-  picture: '/static/temp/cate9.jpg' },
-
-{
-  id: 22,
-  pid: 18,
-  name: '每周一花',
-  picture: '/static/temp/cate10.jpg' },
-
-{
-  id: 23,
-  pid: 18,
-  name: '卡通花束',
-  picture: '/static/temp/cate11.jpg' },
-
-{
-  id: 24,
-  pid: 18,
-  name: '永生花',
-  picture: '/static/temp/cate12.jpg' },
-
+// {
+// 	id: 21,
+// 	pid: 18,
+// 	name: '鲜花',
+// 	picture: '/static/temp/cate9.jpg'
+// },
+// {
+// 	id: 22,
+// 	pid: 18,
+// 	name: '每周一花',
+// 	picture: '/static/temp/cate10.jpg'
+// },
+// {
+// 	id: 23,
+// 	pid: 18,
+// 	name: '卡通花束',
+// 	picture: '/static/temp/cate11.jpg'
+// },
+// {
+// 	id: 24,
+// 	pid: 18,
+// 	name: '永生花',
+// 	picture: '/static/temp/cate12.jpg'
+// },
 {
   id: 25,
   pid: 3,
-  name: '男装' },
+  name: '服务端' },
 
-{
-  id: 26,
-  pid: 3,
-  name: '女装' },
-
+// {
+// 	id: 26,
+// 	pid: 3,
+// 	name: '女装'
+// },
 {
   id: 27,
   pid: 25,
-  name: '男士T恤',
-  picture: '/static/temp/cate13.jpg' },
+  name: 'JAVA',
+  picture: 'http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_62DKAdoIZAAEvqKV9rjM919.PNG' },
 
 {
   id: 28,
   pid: 25,
-  name: '男士外套',
-  picture: '/static/temp/cate14.jpg' },
+  name: 'Python',
+  picture: 'http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_62JOAWe15AAGD9RifBBk228.PNG' },
 
-{
-  id: 29,
-  pid: 26,
-  name: '裙装',
-  picture: '/static/temp/cate15.jpg' },
-
-{
-  id: 30,
-  pid: 26,
-  name: 'T恤',
-  picture: '/static/temp/cate16.jpg' },
-
-{
-  id: 31,
-  pid: 26,
-  name: '上装',
-  picture: '/static/temp/cate15.jpg' },
-
-{
-  id: 32,
-  pid: 26,
-  name: '下装',
-  picture: '/static/temp/cate16.jpg' },
-
+// {
+// 	id: 29,
+// 	pid: 26,
+// 	name: '裙装',
+// 	picture: '/static/temp/cate15.jpg'
+// },
+// {
+// 	id: 30,
+// 	pid: 26,
+// 	name: 'T恤',
+// 	picture: '/static/temp/cate16.jpg'
+// },
+// {
+// 	id: 31,
+// 	pid: 26,
+// 	name: '上装',
+// 	picture: '/static/temp/cate15.jpg'
+// },
+// {
+// 	id: 32,
+// 	pid: 26,
+// 	name: '下装',
+// 	picture: '/static/temp/cate16.jpg'
+// },
 {
   id: 33,
   pid: 4,
-  name: '奶粉' },
+  name: '数据库' },
 
-{
-  id: 34,
-  pid: 4,
-  name: '营养辅食' },
-
-{
-  id: 35,
-  pid: 4,
-  name: '童装' },
-
-{
-  id: 39,
-  pid: 4,
-  name: '喂养用品' },
-
+// {
+// 	id: 34,
+// 	pid: 4,
+// 	name: '营养辅食',
+// },
+// {
+// 	id: 35,
+// 	pid: 4,
+// 	name: '童装',
+// },
+// {
+// 	id: 39,
+// 	pid: 4,
+// 	name: '喂养用品',
+// },
 {
   id: 36,
   pid: 33,
-  name: '有机奶粉',
-  picture: '/static/temp/cate17.jpg' },
+  name: 'Mysql',
+  picture: 'http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_62V-AIbvmAAFZe_COSXk702.PNG' }];var _default =
 
-{
-  id: 37,
-  pid: 34,
-  name: '果泥/果汁',
-  picture: '/static/temp/cate18.jpg' },
 
-{
-  id: 39,
-  pid: 34,
-  name: '面条/粥',
-  picture: '/static/temp/cate20.jpg' },
 
-{
-  id: 42,
-  pid: 35,
-  name: '婴童衣橱',
-  picture: '/static/temp/cate19.jpg' },
 
-{
-  id: 43,
-  pid: 39,
-  name: '吸奶器',
-  picture: '/static/temp/cate21.jpg' },
 
-{
-  id: 44,
-  pid: 39,
-  name: '儿童餐具',
-  picture: '/static/temp/cate22.jpg' },
 
-{
-  id: 45,
-  pid: 39,
-  name: '牙胶安抚',
-  picture: '/static/temp/cate23.jpg' },
 
-{
-  id: 46,
-  pid: 39,
-  name: '围兜',
-  picture: '/static/temp/cate24.jpg' }];var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10449,24 +10501,24 @@ var cateList = [{
   cateList: cateList };exports.default = _default;
 
 /***/ }),
-/* 22 */,
 /* 23 */,
 /* 24 */,
 /* 25 */,
 /* 26 */,
 /* 27 */,
-/* 28 */
+/* 28 */,
+/* 29 */
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 29);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 30);
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -10497,7 +10549,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 30);
+module.exports = __webpack_require__(/*! ./runtime */ 31);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -10513,7 +10565,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/

@@ -2,6 +2,7 @@
 export default{
     post(url,params={}) {
         let{isLoading=true}=params;
+		console.log("http.js--->入参",params)
         return uni.request({
             header:{
             'Content-Type':'application/json;charset=UTF-8',
@@ -9,11 +10,11 @@ export default{
             },
             method:'POST',
             url:"http://49.233.188.52:8090"+url,
+		   // url:"http://localhost:8090"+url,
             data: params,
             timeout:30000,
             isLoading,
-			dataType:"json",
-           
+			dataType:"json"
 
         })
     }

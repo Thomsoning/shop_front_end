@@ -14,9 +14,14 @@
 			<!-- 背景色区域 -->
 			<view class="titleNview-background" :style="{backgroundColor:titleNViewBackground}"></view>
 			<swiper class="carousel" circular @change="swiperChange">
-				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage({title: '轮播广告'})">
+				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" 
+				>
 					<image :src="item.src" />
 				</swiper-item>
+<!-- 				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item"
+				@click="navToDetailPage({title: '轮播广告'})">
+					<image :src="item.src" />
+				</swiper-item> -->
 			</swiper>
 			<!-- 自定义swiper指示器 -->
 			<view class="swiper-dots">
@@ -28,29 +33,29 @@
 		<!-- 分类 -->
 		<view class="cate-section">
 			<view class="cate-item">
-				<image src="/static/temp/c3.png"></image>
-				<text>环球美食</text>
+				<image src="http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_60_aARIHAAAB8vEXX0Bc833.PNG"></image>
+				<text>HTML</text>
 			</view>
 			<view class="cate-item">
-				<image src="/static/temp/c5.png"></image>
-				<text>个护美妆</text>
+				<image src="http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_61r-AEOviAAFXOfED--Q505.PNG"></image>
+				<text>Javascript</text>
 			</view>
 			<view class="cate-item">
-				<image src="/static/temp/c6.png"></image>
-				<text>营养保健</text>
+				<image src="http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_62DKAdoIZAAEvqKV9rjM919.PNG"></image>
+				<text>服务端</text>
 			</view>
 			<view class="cate-item">
-				<image src="/static/temp/c7.png"></image>
-				<text>家居厨卫</text>
+				<image src="http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_62V-AIbvmAAFZe_COSXk702.PNG"></image>
+				<text>数据库</text>
 			</view>
 			<view class="cate-item">
-				<image src="/static/temp/c8.png"></image>
-				<text>速食生鲜</text>
+				<image src="http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_65fmAbRj7AAF1T7VL6uc863.PNG"></image>
+				<text>开发工具</text>
 			</view>
 		</view>
 		
 		<view class="ad-1">
-			<image src="/static/temp/ad1.jpg" mode="scaleToFill"></image>
+			<image src="http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_65yKARoudAAQJu3TaTLQ297.PNG" mode="scaleToFill"></image>
 		</view>
 		
 		<!-- 秒杀楼层 -->
@@ -138,7 +143,7 @@
 		
 		<!-- 分类推荐楼层 -->
 		<view class="f-header m-t">
-			<image src="/static/temp/h1.png"></image>
+			<image src="http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_66OOAOuGfAABrtg0vK64959.PNG"></image>
 			<view class="tit-box">
 				<text class="tit">分类精选</text>
 				<text class="tit2">Competitive Products For You</text>
@@ -147,7 +152,7 @@
 		</view>
 		<view class="hot-floor">
 			<view class="floor-img-box">
-				<image class="floor-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553409398864&di=4a12763adccf229133fb85193b7cc08f&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201703%2F19%2F20170319150032_MNwmn.jpeg" mode="scaleToFill"></image>
+				<image class="floor-img" src="http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_66oqABE0OAALtACNa9DQ177.PNG" mode="scaleToFill"></image>
 			</view>
 			<scroll-view class="floor-list" scroll-x>
 				<view class="scoll-wrapper">
@@ -214,7 +219,7 @@
  -->
 		<!-- 猜你喜欢 -->
 		<view class="f-header m-t">
-			<image src="/static/temp/h1.png"></image>
+			<image src="http://49.233.188.52:8888/group1/M00/00/00/Mem8NF_66OOAOuGfAABrtg0vK64959.PNG"></image>
 			<view class="tit-box">
 				<text class="tit">为你推荐</text>
 				<text class="tit2">Guess You Like It</text>
@@ -503,7 +508,7 @@
 	}
 	.ad-1{
 		width: 100%;
-		height: 210upx;
+		height: 310upx;
 		padding: 10upx 0;
 		background: #fff;
 		image{

@@ -4,6 +4,10 @@ export default {
 		console.log("商品列表入参",params)
         return http.post('/frontend/product/list',params)
     },
+	categoryList(params){
+		console.log("商品分类入参",params)
+	    return http.post('/frontend/product/category/list',params)
+	},
     add(params){
         return http.post('/backend/product/add',params)
     },

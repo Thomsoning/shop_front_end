@@ -19,13 +19,13 @@
 			<view class="price-box">
 				<text class="price-tip">¥</text>
 				<text class="price">{{productPrice}}</text>
-				<text class="m-price">¥488</text>
-				<text class="coupon-tip">{{productInfo.discount}}</text>
+				<text class="m-price">¥{{productOriginalPrice}}</text>
+				<text class="coupon-tip">{{productInfo.discount}}折</text>
 			</view>
 			<view class="bot-row">
 				<text>销量: {{productSellNumber}}</text>
 				<text>库存: {{productNumber}}</text>
-				<text>浏览量: 768</text>
+				<!-- <text>浏览量: 768</text> -->
 			</view>
 		</view>
 		
@@ -45,7 +45,7 @@
 		</view>
 		
 		<view class="c-list">
-			<view class="c-row b-b" @click="toggleSpec">
+<!-- 			<view class="c-row b-b" @click="toggleSpec">
 				<text class="tit">购买类型</text>
 				<view class="con">
 					<text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
@@ -53,7 +53,7 @@
 					</text>
 				</view>
 				<text class="yticon icon-you"></text>
-			</view>
+			</view> -->
 			<view class="c-row b-b">
 				<text class="tit">优惠券</text>
 				<text class="con t-r red">领取优惠券</text>
@@ -89,9 +89,9 @@
 				<image class="portrait" src="http://img3.imgtn.bdimg.com/it/u=1150341365,1327279810&fm=26&gp=0.jpg" mode="aspectFill"></image>
 				<view class="right">
 					<text class="name">Leo yo</text>
-					<text class="con">商品收到了，79元两件，质量不错，试了一下有点瘦，但是加个外罩很漂亮，我很喜欢</text>
+					<text class="con">书籍内容写得很好</text>
 					<view class="bot">
-						<text class="attr">购买类型：XL 红色</text>
+						<text class="attr">购买类型：{{productName}}</text>
 						<text class="time">2019-04-01 19:21</text>
 					</view>
 				</view>
@@ -131,7 +131,7 @@
 			
 			<view class="action-btn-group">
 				<button type="primary" class=" action-btn no-border buy-now-btn" @click="buy">立即购买</button>
-				<button type="primary" class=" action-btn no-border add-cart-btn">加入购物车</button>
+				<button type="primary" class=" action-btn no-border add-cart-btn" @click="cat">加入购物车</button>
 			</view>
 		</view>
 		
@@ -198,8 +198,11 @@
 				productSellNumber:"",
 				productInfo:"",
 				productName:"",
+				product:{},
+				productPrice:"",
 				specClass: 'none',
 				specSelected:[],
+				productOriginalPrice:"",
 				
 				favorite: true,
 				shareList: [],
@@ -295,6 +298,8 @@
 			this.productName=id.productName;
 			this.productInfo=id.productInfo;
 			this.productPrice=id.productPrice;
+			this.productOriginalPrice=id.productPrice/id.productInfo.discount
+			this.product=id;
 			//规格 默认选中第一条
 			this.specList.forEach(item=>{
 				for(let cItem of this.specChildList){
@@ -351,6 +356,38 @@
 			toFavorite(){
 				this.favorite = !this.favorite;
 			},
+			//加入购物车
+			cat(){
+			var cat={
+						id: this.product.productId,
+						image: this.product.productInfo.img[0],
+						attr_val: this.product.productInfo.desc,
+						stock: 15,
+						title: this.product.productName,
+						price: this.product.productPrice,
+						number: 1
+					}
+				uni.request({
+				    header:{
+				    'Content-Type':'application/json;charset=UTF-8',
+				    'token':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJoencifQ.YqWDSsPa_2FLTb9Zh2-UWmjq4tpus5Yiz_MHVe8etaI'
+				    },
+				    method:'POST',
+				    url:"http://49.233.188.52:8090"+"/frontend/cart/add",
+				   // url:"http://localhost:8090"+"/frontend/cart/add",
+				    data: {
+						"cartInfo":JSON.stringify(cat)
+					},
+				    timeout:30000,
+					dataType:"json",
+				
+				}).then(data => {//data为一个数组，数组第一项为错误信息，第二项为返回数据
+							var [error, res]  = data;
+							console.log("添加购物车响应结果",res)
+							}
+							)
+			},
+			//去购买
 			buy(){
 				uni.navigateTo({
 					url: `/pages/order/createOrder`

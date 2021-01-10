@@ -36,7 +36,7 @@
 						</view>
 						<view class="item-right">
 							<text class="clamp title">{{item.title}}</text>
-							<text class="attr">{{item.attr_val}}</text>
+						<!-- 	<text class="attr">{{item.attr_val}}</text> -->
 							<text class="price">¥{{item.price}}</text>
 							<uni-number-box 
 								class="step"
@@ -67,11 +67,11 @@
 				</view>
 				<view class="total-box">
 					<text class="price">¥{{total}}</text>
-					<text class="coupon">
+					<!-- <text class="coupon">
 						已优惠
 						<text>74.35</text>
 						元
-					</text>
+					</text> -->
 				</view>
 				<button type="primary" class="no-border confirm-btn" @click="createOrder">去结算</button>
 			</view>
@@ -98,6 +98,9 @@
 			this.loadData();
 			this.fetchData();
 		},
+		created(){
+		    this.fetchData();   
+		  },
 		watch:{
 			//显示空白页
 			cartList(e){
@@ -124,13 +127,40 @@
 			    },
 			//请求数据
 			async loadData(){
-				let list = await this.$api.json('cartList'); 
-				let cartList = list.map(item=>{
-					item.checked = true;
-					return item;
-				});
-				this.cartList = cartList;
-				this.calcTotal();  //计算总价
+				var that=this
+				//let list = await this.$api.json('cartList'); 
+				uni.request({
+				    header:{
+				    'Content-Type':'application/json;charset=UTF-8',
+				    'token':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJoencifQ.YqWDSsPa_2FLTb9Zh2-UWmjq4tpus5Yiz_MHVe8etaI'
+				    },
+				    method:'POST',
+				    url:"http://49.233.188.52:8090"+"/frontend/cart/list",
+				    //url:"http://localhost:8090"+"/frontend/cart/list",
+				    data: {
+					},
+				    timeout:30000,
+					dataType:"json",
+				
+				}).then(data => {//data为一个数组，数组第一项为错误信息，第二项为返回数据
+							var [error, res]  = data;
+							
+							if(res.data.data==null){
+								return
+							}
+							var list=res.data.data
+							list.forEach(element => {
+							    element.cartInfo= JSON.parse(element.cartInfo)
+							});
+							let cartList = list[0].cartInfo.map(item=>{
+								item.checked = true;
+								return item;
+							});
+							that.cartList = cartList;
+							that.calcTotal();  //计算总价
+							})
+				
+				
 			},
 			//监听image加载完成
 			onImageLoad(key, index) {
